@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
 
 :root {
   --background: #ffffff;
@@ -17,5 +19,5 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Monrope', sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
