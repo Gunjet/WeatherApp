@@ -1,5 +1,3 @@
-
-
 export default function WeatherCard({
   bgcolor,
   date,

@@ -1,4 +1,3 @@
-
 export default function Circle({ size = 140, borderColor = 'blue'}) {
   return (
     <div
