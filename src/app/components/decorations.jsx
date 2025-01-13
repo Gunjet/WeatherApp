@@ -2,8 +2,11 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { CiHome } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
+import { IoLocationOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
 import { IoPersonOutline } from "react-icons/io5";
+import { useState, useEffect } from "react"
+
 
 export default function Logo(){
     return(
@@ -14,21 +17,107 @@ export default function Logo(){
     )
 }
 
-export const Search=({ visible = true, search, onChangeText, onPressEnter}) =>{
-    return (
-      <div className={`${visible ? 'block' : 'invisible'} w-[400px] h-[55px] bg-white rounded-3xl flex items-center ml-10 mt-10 z-40 absolute`}>
-        <AiOutlineSearch className="text-2xl ml-5" />
-        <input 
-          className="p-3 text-xl text-black border-none focus:outline-none"
-          placeholder="Search"
-          value={search}
-          onChange={onChangeText}
-          onKeyDown={onPressEnter}
-          />
-      </div>
-    );
-  }
-  
+const API_KEY = '5bf8f7f6f1ac4ed1ae772612241312';
+
+export const Search = ({ visible = true, search, onChangeText, onPressEnter }) => {
+  const [suggestions, setSuggestions] = useState([]);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [loading, setLoading] = useState(false);
+
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
+    if (!debouncedSearch) {
+      setSuggestions([]);
+      return;
+    }
+
+    const fetchSuggestions = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${debouncedSearch}`);
+        const data = await response.json();
+        setSuggestions(data);
+      } catch (error) {
+        console.error("Error fetching city suggestions:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSuggestions();
+  }, [debouncedSearch]);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    onChangeText(e); 
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    onChangeText({ target: { value: suggestion.name } }); 
+    setSuggestions([]);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.code === "ArrowDown") {
+      setHighlightedIndex((prev) => (prev < suggestions.length - 1 ? prev + 1 : prev));
+    } else if (e.code === "ArrowUp") {
+      setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : prev));
+    } else if (e.code === "Enter") {
+      if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
+        handleSuggestionClick(suggestions[highlightedIndex]);
+      } else {
+        onPressEnter(e);
+      }
+    }
+  };
+
+  return (
+    <div
+      className={`${visible ? "block" : "invisible"} w-[400px] h-[55px] bg-white rounded-3xl flex items-center ml-10 mt-10 z-40 absolute`}
+    >
+      <AiOutlineSearch className="text-2xl ml-5" />
+      <input
+        className="p-3 text-xl text-black border-none focus:outline-none"
+        placeholder="Search"
+        value={search}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+      />
+      {loading && search && (
+        <div className="absolute w-full mt-1 bg-white border rounded-xl z-50 max-h-60 overflow-y-auto">
+          <div className="p-3 text-xl text-black">Loading...</div>
+        </div>
+      )}
+      {suggestions.length > 0 && !loading && (
+        <div className="absolute w-full mt-[130px] bg-white backdrop-blur-lg border-none rounded-3xl max-h-60 overflow-y-auto">
+          <ul className="list-none m-0 pl-3 flex items-center ">
+          <IoLocationOutline className='text-xl ml-3'/>
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={suggestion.id} 
+                className={`p-3 cursor-pointer text-black text-md `}
+                onClick={() => handleSuggestionClick(suggestion)}
+                onMouseEnter={() => setHighlightedIndex(index)} 
+              >
+                {suggestion.name}, {suggestion.country}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export function Icons({ iconColor = 'black' }) {
   const iconClass = iconColor === 'white' ? 'text-white' : 'text-black';
 
@@ -78,4 +167,3 @@ export function YellowCircle() {
       </div>
     );
   }
-  
