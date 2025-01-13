@@ -18,6 +18,9 @@ export default {
       fontFamily: {
         manrope: ['Manrope', 'sans-serif'], 
       },
+      fontWeight: {
+        'extrabold': 800,
+      },
     },
   },
   plugins: [],
