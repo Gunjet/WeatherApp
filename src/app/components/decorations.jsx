@@ -82,19 +82,19 @@ export const Search = ({ visible = true, search, onChangeText, onPressEnter }) =
 
   return (
     <div
-      className={`${visible ? "block" : "invisible"} w-[400px] h-[55px] bg-white rounded-3xl flex items-center ml-10 mt-10 z-40 absolute`}
+      className={`${visible ? "block" : "invisible"}  w-[410px] 2xl:h-[55px] bg-white rounded-3xl flex items-center ml-10 mt-10 z-40 absolute`}
     >
       <AiOutlineSearch className="text-2xl ml-5" />
       <input
-        className="p-3 text-xl text-black border-none focus:outline-none"
+        className="p-3 2xl:text-xl text-black border-none focus:outline-none"
         placeholder="Search"
         value={search}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
       {loading && search && (
-        <div className="absolute w-full mt-1 bg-white border rounded-xl z-50 max-h-60 overflow-y-auto">
-          <div className="p-3 text-xl text-black">Loading...</div>
+        <div className="absolute w-full mt-[130px] bg-white border rounded-full z-50 max-h-60 overflow-y-auto">
+          <div className="px-6 py-3 text-md text-black">Loading...</div>
         </div>
       )}
       {suggestions.length > 0 && !loading && (
@@ -122,8 +122,8 @@ export function Icons({ iconColor = 'black' }) {
   const iconClass = iconColor === 'white' ? 'text-white' : 'text-black';
 
   return (
-  <div className={`absolute text-${iconColor} ml-[120px] my-[900px] h-32 w-[360px] flex justify-around z-40 overflow-visible 
-   sm:ml-[60px] sm:my-[700px] md:ml-[120px] md:my-[850px]`}>
+  <div className={`absolute text-${iconColor} lg:ml-[155px] 2xl:ml-[120px] lg:my-[650px] 2xl:my-[700px] 2xl:my-[900px] h-32 lg:w-[280px] 2xl:w-[360px] flex justify-around z-40 overflow-visible 
+   sm:ml-[60px] sm:my-[700px] md:ml-[120px] md:my-[850px] cursor-pointer`}>
    <CiHome className={`text-xl ${iconClass}`} />
    <CiLocationOn className={`text-xl ${iconClass}`} />
    <CiHeart className={`text-xl ${iconClass}`} />
@@ -134,7 +134,7 @@ export function Icons({ iconColor = 'black' }) {
 
 export function YellowCircle() {
     return (
-      <div className="absolute ml-[60px] mt-[180px]
+      <div className="absolute ml-[60px] lg:mt-[80px] 2xl:mt-[180px]
        sm:mt-[120px]">
         <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176">
           <circle cx="88" cy="88" r="88" fill="#FF8E27" />
@@ -152,7 +152,7 @@ export function YellowCircle() {
   
   export function BlueCircle() {
     return (
-      <div className="absolute ml-[400px] mt-[880px]
+      <div className="absolute lg:ml-[370px] 2xl:ml-[400px] lg:mt-[630px] 2xl:mt-[880px]
        sm:mt-[840px]">
         <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="64" cy="64" r="64" fill="#6E72C9" />

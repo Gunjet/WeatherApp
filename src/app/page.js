@@ -70,16 +70,16 @@ export default function Home() {
             temperatureColor="black"
           />
           <Icons iconColor="#D1D5DB" />
-          <CiLocationOn className="absolute text-xl text-[#4B5563] z-40 ml-[405px] my-[240px]" />
+          <CiLocationOn className="absolute text-xl text-[#4B5563] z-40 ml-[405px] lg:my-[160px] 2xl:my-[240px]" />
         </div>
 
         <div className="w-1/2 h-full bg-[#0F141E] relative ">
-         <div className='absolute h-[40px] w-[30px] bg-[#F3F4F6] my-[443px]'></div>
-         <div className='absolute h-[40px] w-[30px] bg-[#F3F4F6] my-[610px]'></div>
+         <div className='absolute h-[40px] w-[30px] bg-[#F3F4F6] my-[300px]'></div>
+         <div className='absolute h-[40px] w-[30px] bg-[#F3F4F6] my-[470px]'></div>
          <div className='absolute h-[60px] w-[50px] bg-[#F3F4F6] bottom-0'></div>
          <div className='absolute h-[120px] w-[120px] bg-[#0F141E] bottom-0 rounded-full'></div>
-         <div className='absolute h-[90px] w-[90px] bg-[#0F141E] my-[396px] rounded-full'></div>
-         <div className='absolute h-[90px] w-[90px] bg-[#0F141E] my-[607px] rounded-full'></div>
+         <div className='absolute h-[90px] w-[90px] bg-[#0F141E] my-[256px] rounded-full'></div>
+         <div className='absolute h-[90px] w-[90px] bg-[#0F141E] my-[467px] rounded-full'></div>
           <BlueCircle/>
           <Search visible={false} />
           <WeatherCard
@@ -93,12 +93,12 @@ export default function Home() {
             statColor="green"
           />
           <Icons iconColor="white" />
-          <CiLocationOn className="absolute text-xl text-[#9CA3AF] z-40 ml-[405px] my-[240px]" />
+          <CiLocationOn className="absolute text-xl text-[#9CA3AF] z-40 ml-[405px] lg:my-[160px] 2xl:my-[240px]" />
         </div>
         <Circle size={140} />
         <Circle size={340} />
         <Circle size={540} />
-        <Circle size={940} />
+        <Circle size={780} />
       </div>
       <Logo />
     </div>
